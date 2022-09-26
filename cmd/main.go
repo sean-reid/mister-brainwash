@@ -5,19 +5,16 @@ import (
 	"os"
 	"sync"
 
-	"github.com/tjarratt/babble"
 	"google.golang.org/api/youtube/v3"
 )
 
 const (
-	pathBase     = "videos"
-	filename     = "life_remote_control.mp4"
-	title        = "Life Remote Control"
-	description  = "A series of miscellaneous film footage are put together, to represent life as if watching it in front of a television screen with a remote control."
-	privacy      = "unlisted"
-	category     = "1"
-	maxResults   = 50
-	maxDownloads = 30
+	pathBase    = "videos"
+	filename    = "life_remote_control.mp4"
+	title       = "Life Remote Control"
+	description = "A series of miscellaneous film footage are put together, to represent life as if watching it in front of a television screen with a remote control."
+	privacy     = "unlisted"
+	category    = "1"
 )
 
 func main() {
@@ -31,12 +28,6 @@ func main() {
 
 	}
 
-	babbler := babble.NewBabbler()
-	babbler.Count = 10
-	babbler.Separator = ","
-	keywords := babbler.Babble()
-	log.Printf(keywords)
-
 	client := getClient(youtube.YoutubeScope)
 
 	service, err := youtube.New(client)
@@ -44,34 +35,33 @@ func main() {
 		log.Fatalf("Error creating new YouTube client: %v", err)
 	}
 
-	videoIds := searchByKeyword(keywords, maxResults, service)
+	videoIds, keywords := getVideoIdsAndKeywords(service)
 
 	var wg sync.WaitGroup
-	count := 0
 	for _, id := range videoIds {
-		if count > maxDownloads {
-			break
-		}
 		wg.Add(1)
-		go downloadVideo(id, &err, &wg)
-		if err != nil {
-			log.Printf("Error: skipping video download: %v", err)
-		}
-		count++
+		go downloadVideo(id, &wg)
 	}
 
 	wg.Wait()
 
-	e := joinVideos()
-	if e != nil {
-		log.Fatalf("Error joining videos")
+	err = joinVideos()
+	if err != nil {
+		log.Fatalf("Error joining videos: %v", err)
 	}
 
-	e = os.RemoveAll(pathBase + "/downloads")
-	if e != nil {
-		log.Printf("Error deleting files in downloads directory")
+	err = os.RemoveAll(pathBase + "/downloads")
+	if err != nil {
+		log.Printf("Error deleting files in downloads directory: %v", err)
 	}
 
-	uploadVideo(title, description, category, privacy, keywords, pathBase+"/output/"+filename, *service)
+	log.Printf("Title: %v", title)
+	log.Printf("Description: %v", description)
+	log.Printf("Category: %v", category)
+	log.Printf("Privacy: %v", privacy)
+	log.Printf("Keywords: %v", keywords)
+	log.Printf("Filename: %v", filename)
+
+	// uploadVideo(title, description, category, privacy, keywords, pathBase+"/output/"+filename, *service)
 
 }
