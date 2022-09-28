@@ -16,7 +16,7 @@ const (
 	maxQueries        = 10
 	maxVideosPerQuery = 3
 	maxResults        = 50
-	wordsList         = "common-words-clean.txt"
+	wordsList         = "safedict_full.txt"
 )
 
 func getRandomWords() string {
