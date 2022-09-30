@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	keywordsPerQuery  = 5
+	keywordsPerQuery  = 3
 	maxQueries        = 10
 	maxVideosPerQuery = 3
 	maxResults        = 50
