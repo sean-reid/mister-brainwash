@@ -16,7 +16,7 @@ const (
 	maxQueries        = 10
 	maxVideosPerQuery = 3
 	maxResults        = 50
-	wordsList         = "safedict_full.txt"
+	wordsList         = "data/safedict_full.txt"
 )
 
 func getRandomWords() string {
@@ -32,9 +32,6 @@ func getRandomWords() string {
 func searchByKeyword(videoIds chan string, keywords chan string, service *youtube.Service) {
 
 	query := getRandomWords()
-	log.Printf("Query: %v", query)
-
-	keywords <- query
 
 	// Make the API call to YouTube.
 	call := service.Search.List([]string{"id", "snippet"}).
@@ -56,6 +53,7 @@ func searchByKeyword(videoIds chan string, keywords chan string, service *youtub
 	}
 	if len(videoIdsQueried) <= 0 {
 		log.Printf("no video IDs found for this query: %v", query)
+		go searchByKeyword(videoIds, keywords, service)
 		return
 	}
 
@@ -66,11 +64,13 @@ func searchByKeyword(videoIds chan string, keywords chan string, service *youtub
 	for ii := 0; ii < maxVideosPerQuery; ii++ {
 		videoIds <- videoIdsQueried[ii]
 	}
+	log.Printf("Query: %v", query)
+	keywords <- query
 }
 
 func getVideoIdsAndKeywords(service *youtube.Service) ([]string, string) {
 	rand.Seed(time.Now().Unix())
-	videoIds := make(chan string, maxQueries)
+	videoIds := make(chan string, maxQueries*maxVideosPerQuery)
 	keywords := make(chan string, maxQueries)
 
 	for ii := 0; ii < maxQueries; ii++ {

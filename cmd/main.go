@@ -13,7 +13,7 @@ const (
 	filename    = "life_remote_control.mp4"
 	title       = "Life Remote Control"
 	description = "A series of miscellaneous film footage are put together, to represent life as if watching it in front of a television screen with a remote control."
-	privacy     = "unlisted"
+	privacy     = "public"
 	category    = "1"
 )
 
@@ -62,6 +62,11 @@ func main() {
 	log.Printf("Keywords: %v", keywords)
 	log.Printf("Filename: %v", filename)
 
-	// uploadVideo(title, description, category, privacy, keywords, pathBase+"/output/"+filename, *service)
+	uploadVideo(title, description, category, privacy, keywords, pathBase+"/output/"+filename, *service)
+
+	err = os.RemoveAll(pathBase + "/output")
+	if err != nil {
+		log.Printf("Error deleting files in output directory: %v", err)
+	}
 
 }

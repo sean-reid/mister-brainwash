@@ -126,16 +126,11 @@ func downloadVideo(id string, wg *sync.WaitGroup) {
 	outSplit = strings.Split(outStr, "\n")
 	videoUrl := outSplit[0]
 	audioUrl := outSplit[1]
-	command = "ffmpeg -ss " + start + " -i '" + videoUrl + "' -ss " + start + " -i '" + audioUrl + "' -map 0:v -map 1:a -ss 0 -t " + clipDurationStrFfmpeg + " -c:v libx264 -c:a aac " + filename
+	command = "ffmpeg -xerror -ss " + start + " -i '" + videoUrl + "' -ss " + start + " -i '" + audioUrl + "' -map 0:v -map 1:a -ss 0 -t " + clipDurationStrFfmpeg + " -c:v libx264 -c:a aac " + filename
 	log.Printf("Running command: %v", command)
 	out, err = exec.Command("bash", "-c", command).Output()
 	if err != nil {
 		log.Printf("error streaming video to file")
-		return
-	}
-	outStr = string(out)
-	if strings.Contains(outStr, "Server returned 403 Forbidden (access denied)") {
-		log.Printf("Forbidden media, deleting temp file")
 		err := os.Remove(filename)
 		if err != nil {
 			log.Printf("Error deleting file: %v", err)
