@@ -39,8 +39,7 @@ func searchByKeyword(videoIds chan string, keywords chan string, service *youtub
 		MaxResults(maxResults)
 	response, err := call.Do()
 	if err != nil {
-		log.Printf("Error querying Youtube: %v", err)
-		return
+		log.Fatalf("Error querying Youtube: %v", err)
 	}
 
 	var videoIdsQueried []string
@@ -53,6 +52,11 @@ func searchByKeyword(videoIds chan string, keywords chan string, service *youtub
 	}
 	if len(videoIdsQueried) <= 0 {
 		log.Printf("no video IDs found for this query: %v", query)
+		go searchByKeyword(videoIds, keywords, service)
+		return
+	}
+	if len(videoIdsQueried) < maxVideosPerQuery {
+		log.Printf("Too few video IDs found for this query: %v", query)
 		go searchByKeyword(videoIds, keywords, service)
 		return
 	}
