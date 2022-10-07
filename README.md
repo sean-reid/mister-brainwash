@@ -28,3 +28,4 @@ Replace `sean` with the name of your user, and modify the path to point to `brai
 
 * If you run out of credits prior to auto-upload, the video is still saved in `videos/output`. Upload this manually until your credits reset the next day.
 * You will need to follow the steps to authenticate your account (getting a token, etc) for Oath2 to work properly. Just once- after that initial authentication, the cronjob should work smoothly.
+* More on the above: you'll need to download a JSON file from Google Cloud (save it in the `auth` folder here) that contains the client id and secret.
