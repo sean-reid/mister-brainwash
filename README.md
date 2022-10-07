@@ -4,7 +4,9 @@ Automating ['Life Remote Control'](https://www.youtube.com/channel/UCAWt5HjfXuJG
 
 ## About
 
-Ever since watching [Exit Through the Gift Shop](https://www.youtube.com/watch?v=IqVXThss1z4), I've been fascinated by Thierry Guetta (a.k.a. Mr. Brainwash) and his confusing compilation of seemingly random footage entitled ['Life Remote Control'](https://youtu.be/602RM3uFc_I). Naturally, as an engineer, the question arose: can I automate this? I turned to the world's largest collection of random footage for inspiration: YouTube. This project is an attemmpt to automate the random sampling, generation, and uploading of new content to YouTube, all in the spirit of Thierry's original work: chaos!
+Ever since watching [Exit Through the Gift Shop](https://www.youtube.com/watch?v=IqVXThss1z4), I've been fascinated by Thierry Guetta (a.k.a. Mr. Brainwash) and his confusing compilation of seemingly random footage entitled ['Life Remote Control'](https://youtu.be/602RM3uFc_I).
+
+Naturally, as an engineer, the question arose: *can I automate this?* I turned to the world's largest collection of random footage for inspiration: YouTube. This project is an attemmpt to automate the random sampling, generation, and uploading of new content to YouTube, all in the spirit of Thierry's original work: **chaos!**
 
 ## Build
 
