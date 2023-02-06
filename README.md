@@ -2,6 +2,8 @@
 
 Automating ['Life Remote Control'](https://www.youtube.com/channel/UCAWt5HjfXuJG4_7j3sSd9_Q).
 
+<a href="https://www.buymeacoffee.com/seanreid" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 ## About
 
 Ever since watching [Exit Through the Gift Shop](https://www.youtube.com/watch?v=IqVXThss1z4), I've been fascinated by Thierry Guetta (a.k.a. Mr. Brainwash) and his confusing compilation of seemingly random footage entitled ['Life Remote Control'](https://youtu.be/602RM3uFc_I).
